@@ -1,6 +1,29 @@
 # Clinical Trials MCP Server
 
-This is a Model Context Protocol (MCP) server for accessing clinical trial data from the World Health Organization's International Clinical Trials Registry Platform (ICTRP).
+[![Node.js CI](https://github.com/mattjohnpowell/clinical-trials-mcp/actions/workflows/node.js.yml/badge.svg)](https://github.com/mattjohnpowell/clinical-trials-mcp/actions/workflows/node.js.yml)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+
+This is a Model Context Protocol (MCP) server for accessing clinical trial data from the World Health Organization's International Clinical Trials Registry Platform (ICTRP) and ClinicalTrials.gov.
+
+## Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/mattjohnpowell/clinical-trials-mcp.git
+cd clinical-trials-mcp
+
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+
+# Run the server
+npm start
+
+# Run tests
+npm test
+```
 
 ## Recent Improvements
 

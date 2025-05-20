@@ -43,7 +43,7 @@ This document outlines recommended steps to enhance and improve the Clinical Tri
    - [ ] Optimize XML parsing for faster response times
 
 - [ ] 3. **Server Robustness**
-   - [ ] Add unit and integration tests
+   - [x] Add unit and integration tests
    - [ ] Implement health check endpoint
    - [ ] Create monitoring for server status and performance
 
@@ -105,7 +105,7 @@ This document outlines recommended steps to enhance and improve the Clinical Tri
    - [ ] Implement proper try/catch blocks throughout the codebase
    - [ ] Add logging with different severity levels
 
-- [ ] 3. **Add Unit Tests**
-   - [ ] Set up Jest or similar testing framework
-   - [ ] Create tests for the API client functions
-   - [ ] Mock external API responses for reliable testing
+- [x] 3. **Add Unit Tests**
+   - [x] Set up Jest or similar testing framework
+   - [x] Create tests for the API client functions
+   - [x] Mock external API responses for reliable testing

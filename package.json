@@ -19,9 +19,17 @@
     "clinical-trials",
     "ictrp"
   ],
-  "author": "",
+  "author": "Matt John Powell <maytjohnpowell@gmail.com>",
   "license": "ISC",
   "description": "Model Context Protocol server for accessing clinical trials data from ICTRP",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattjohnpowell/clinical-trials-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mattjohnpowell/clinical-trials-mcp/issues"
+  },
+  "homepage": "https://github.com/mattjohnpowell/clinical-trials-mcp#readme",
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "jest": "^29.7.0",
