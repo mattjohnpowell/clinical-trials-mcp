@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "clinical-trials-mcp": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["build/index.js"]
+    }
+  }
+}

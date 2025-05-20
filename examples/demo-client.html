@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Trials MCP Client Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 15px;
+            background-color: #f2f2f2;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: 4px 4px 0 0;
+            margin-right: 5px;
+        }
+        .tab.active {
+            background-color: #3498db;
+            color: white;
+            border-bottom-color: #3498db;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 0 0 4px 4px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        #results {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Clinical Trials MCP Client Demo</h1>
+    <p>This is a demonstration interface for the Clinical Trials MCP server. In a real-world scenario, the MCP server would be accessed by an AI client like Claude for Desktop.</p>
+    
+    <div class="tabs">
+        <div class="tab active" onclick="changeTab('search')">Search Clinical Trials</div>
+        <div class="tab" onclick="changeTab('details')">Get Trial Details</div>
+    </div>
+    
+    <div id="searchTab" class="tab-content active">
+        <h2>Search for Clinical Trials</h2>
+        <form id="searchForm">
+            <div class="form-group">
+                <label for="query">Search Query</label>
+                <input type="text" id="query" placeholder="E.g., diabetes treatment">
+            </div>
+            
+            <div class="form-group">
+                <label for="condition">Medical Condition</label>
+                <input type="text" id="condition" placeholder="E.g., breast cancer">
+            </div>
+            
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" id="country" placeholder="E.g., United States">
+            </div>
+            
+            <div class="form-group">
+                <label for="sponsor">Sponsor</label>
+                <input type="text" id="sponsor" placeholder="E.g., Novartis">
+            </div>
+            
+            <div class="form-group">
+                <label for="phase">Phase</label>
+                <select id="phase">
+                    <option value="">Any phase</option>
+                    <option value="Phase 1">Phase 1</option>
+                    <option value="Phase 2">Phase 2</option>
+                    <option value="Phase 3">Phase 3</option>
+                    <option value="Phase 4">Phase 4</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="recruitmentStatus">Recruitment Status</label>
+                <select id="recruitmentStatus">
+                    <option value="">Any status</option>
+                    <option value="Recruiting">Recruiting</option>
+                    <option value="Not yet recruiting">Not yet recruiting</option>
+                    <option value="Active, not recruiting">Active, not recruiting</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="dateFrom">Date From</label>
+                <input type="date" id="dateFrom">
+            </div>
+            
+            <div class="form-group">
+                <label for="dateTo">Date To</label>
+                <input type="date" id="dateTo">
+            </div>
+            
+            <div class="form-group">
+                <label for="maxResults">Maximum Results</label>
+                <input type="number" id="maxResults" min="1" max="50" value="10">
+            </div>
+            
+            <button type="submit">Search Trials</button>
+        </form>
+    </div>
+    
+    <div id="detailsTab" class="tab-content">
+        <h2>Get Trial Details</h2>
+        <form id="detailsForm">
+            <div class="form-group">
+                <label for="trialId">Trial ID</label>
+                <input type="text" id="trialId" placeholder="E.g., NCT04368728" required>
+            </div>
+            
+            <button type="submit">Get Details</button>
+        </form>
+    </div>
+    
+    <div id="resultsContainer" class="hidden">
+        <h2>Results</h2>
+        <div id="results"></div>
+    </div>
+    
+    <script>
+        // This is a demo client. In a real implementation, you would connect to the MCP server
+        // through a proper client library or integration.
+        
+        function changeTab(tab) {
+            // Hide all tabs and remove active class
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tabElement => {
+                tabElement.classList.remove('active');
+            });
+            
+            // Activate selected tab
+            document.getElementById(tab + 'Tab').classList.add('active');
+            document.querySelector(`.tab[onclick="changeTab('${tab}')"]`).classList.add('active');
+        }
+        
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = {
+                query: document.getElementById('query').value || undefined,
+                condition: document.getElementById('condition').value || undefined,
+                country: document.getElementById('country').value || undefined,
+                sponsor: document.getElementById('sponsor').value || undefined,
+                phase: document.getElementById('phase').value || undefined,
+                recruitmentStatus: document.getElementById('recruitmentStatus').value || undefined,
+                dateFrom: document.getElementById('dateFrom').value || undefined,
+                dateTo: document.getElementById('dateTo').value || undefined,
+                maxResults: parseInt(document.getElementById('maxResults').value) || 10
+            };
+            
+            // Display request
+            const resultsContainer = document.getElementById('resultsContainer');
+            const results = document.getElementById('results');
+            resultsContainer.classList.remove('hidden');
+            
+            // Format and display the request that would be sent to MCP server
+            results.textContent = 'REQUEST TO MCP SERVER:\n\n';
+            results.textContent += 'Tool: search-clinical-trials\n\n';
+            results.textContent += 'Arguments:\n';
+            results.textContent += JSON.stringify(
+                Object.fromEntries(
+                    Object.entries(formData).filter(([_, v]) => v !== undefined)
+                ), 
+                null, 
+                2
+            );
+            
+            results.textContent += '\n\n';
+            results.textContent += 'This is a demo interface. In an actual implementation, this request would be sent to the MCP server and the results would be displayed here.';
+        });
+        
+        document.getElementById('detailsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = {
+                trialId: document.getElementById('trialId').value
+            };
+            
+            // Display request
+            const resultsContainer = document.getElementById('resultsContainer');
+            const results = document.getElementById('results');
+            resultsContainer.classList.remove('hidden');
+            
+            // Format and display the request that would be sent to MCP server
+            results.textContent = 'REQUEST TO MCP SERVER:\n\n';
+            results.textContent += 'Tool: get-trial-details\n\n';
+            results.textContent += 'Arguments:\n';
+            results.textContent += JSON.stringify(formData, null, 2);
+            
+            results.textContent += '\n\n';
+            results.textContent += 'This is a demo interface. In an actual implementation, this request would be sent to the MCP server and the results would be displayed here.';
+        });
+    </script>
+</body>
+</html>

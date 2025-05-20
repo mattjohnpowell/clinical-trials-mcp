@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "clinical-trials-mcp": {
+      "command": "node",
+      "args": [
+        "PATH_TO_BUILD_INDEX_JS"
+      ]
+    }
+  }
+}
